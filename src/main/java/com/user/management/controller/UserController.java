@@ -20,9 +20,9 @@ public class UserController {
     }
     //Get
     @GetMapping("/users/{id}")
-    public Optional<User> getUser(@PathVariable long id) {
-        Optional<User> user = userService.get(id);
-        if(user.isEmpty()){
+    public User getUser(@PathVariable long id) throws UserNotFoundException {
+        User user = userService.get(id).get();
+        if(user == null){
             throw new UserNotFoundException("User id= " + id + " Not found");
         }
         return user;
